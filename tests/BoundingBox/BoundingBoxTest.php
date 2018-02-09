@@ -110,6 +110,7 @@ class BoundingBoxTest extends \League\Geotools\Tests\TestCase
 
     /**
      * @test
+     * @expectedException \InvalidArgumentException
      */
     public function itShouldThrowAnExceptionWhenEllipsoidsDontMatch()
     {
@@ -118,7 +119,6 @@ class BoundingBoxTest extends \League\Geotools\Tests\TestCase
         );
         $polygon = new Polygon([new Coordinate([-1, -2], Ellipsoid::createFromName(Ellipsoid::WGS84))]);
 
-        $this->setExpectedException('\InvalidArgumentException');
         $bb->setPolygon($polygon);
     }
 
