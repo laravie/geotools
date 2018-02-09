@@ -43,7 +43,12 @@
 
     "autoload" : {
         "psr-4" : {
-            "League\\Geotools\\"        : "src",
+            "League\\Geotools\\" : "src"
+        }
+    },
+
+    "autoload-dev" : {
+        "psr-4" : {
             "League\\Geotools\\Tests\\" : "tests"
         }
     },
@@ -52,7 +57,7 @@
 
     "extra" : {
         "branch-alias" : {
-            "dev-master" : "0.7-dev"
+            "dev-master" : "0.2-dev"
         }
     }
 }
