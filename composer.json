@@ -33,11 +33,8 @@
     },
 
     "require-dev" : {
-        "phpunit/phpunit"         : "^5.7",
-        "kriswallsmith/buzz"      : "~0.10",
-        "guzzle/guzzle"           : "~3.7",
-        "zendframework/zend-http" : "~2.2",
-        "predis/predis"           : "~1.0"
+        "phpunit/phpunit" : "^5.7",
+        "predis/predis"   : "~1.0"
     },
 
     "autoload" : {
