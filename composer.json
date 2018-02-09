@@ -17,8 +17,11 @@
         "source" : "https://github.com/laravie/geotools"
     },
 
+    "conflict": {
+        "league/geotools" : "*"
+    },
+
     "replace" : {
-        "league/geotools" : "*",
         "toin0u/geotools" : "*"
     },
 
