@@ -40,30 +40,12 @@ The recommended way to install **Geotools** is through [composer](http://getcomp
 Run the following on the command line:
 
 ```
-php composer require league/geotools=@stable
+php composer require laravie/geotools=@stable
 ```
 
 **Protip:** you should browse the
-[`league/geotools`](https://packagist.org/packages/league/geotools)
+[`laravie/geotools`](https://packagist.org/packages/laravie/geotools)
 page to choose a stable version to use, avoid the `@stable` meta constraint.
-
-**Important:** you should use the `0.4` version if you use Geocoder `2.x` or/and PHP `5.3`.
-
-And install dependencies:
-
-```bash
-$ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar install
-```
-
-Now you can add the autoloader, and you will have access to the library:
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-```
-
 
 Usage & API
 -----------
