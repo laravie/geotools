@@ -1,21 +1,36 @@
 language: php
 
+sudo: false
+
 php:
   - 7.0
   - 7.1
   - 7.2
 
-sudo: false
+env:
+  global:
+    - setup=basic
 
-cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache
+services:
+  - redis-server
+
+before_install:
+  - printf "\n" | pecl install -f redis
+  - travis_retry composer self-update
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-source
+  - composer config discard-changes true
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
 
 script:
-  - ./vendor/bin/phpunit
+  - vendor/bin/phpunit -c phpunit.xml --testdox --verbose
 
+matrix:
+  include:
+    - php: 7.1
+      env: setup=lowest
+    - php: 7.1
+      env: setup=stable
+  fast_finish: true
