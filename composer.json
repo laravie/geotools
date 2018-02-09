@@ -1,9 +1,8 @@
 {
-    "name"        : "league/geotools",
+    "name"        : "laravie/geotools",
     "type"        : "library",
     "description" : "Geo-related tools PHP 7.0+ library",
-    "keywords"    : ["geotools", "geometry", "geocoder", "geocoding", "geoip", "bounds", "distance", "batch", "async"],
-    "homepage"    : "http://geotools-php.org/",
+    "keywords"    : ["geotools", "geometry", "geoip", "bounds", "distance"],
     "license"     : "MIT",
 
     "authors" : [{
@@ -14,12 +13,12 @@
     }],
 
     "support" : {
-        "email"  : "support@geotools-php.org",
-        "issues" : "https://github.com/thephpleague/geotools/issues",
-        "source" : "https://github.com/thephpleague/geotools"
+        "issues" : "https://github.com/laravie/geotools/issues",
+        "source" : "https://github.com/laravie/geotools"
     },
 
     "replace" : {
+        "league/geotools" : "*",
         "toin0u/geotools" : "*"
     },
 
