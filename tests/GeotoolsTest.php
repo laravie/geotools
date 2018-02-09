@@ -67,16 +67,6 @@ class GeotoolsTest extends TestCase
         $this->assertInstanceOf('League\Geotools\Vertex\VertexInterface', $vertex);
     }
 
-    public function testBatchShouldReturnANewBatchInstance()
-    {
-        $geocoder = new Geocoder();
-        $batch = $this->geotools->batch($geocoder);
-
-        $this->assertTrue(is_object($batch));
-        $this->assertInstanceOf('League\Geotools\Batch\Batch', $batch);
-        $this->assertInstanceOf('League\Geotools\Batch\BatchInterface', $batch);
-    }
-
     public function testGeohashShouldReturnANewGeohashInstance()
     {
         $geohash = $this->geotools->geohash();

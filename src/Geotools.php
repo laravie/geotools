@@ -17,7 +17,6 @@ use League\Geotools\Vertex\Vertex;
 use League\Geotools\Batch\Batch;
 use League\Geotools\Geohash\Geohash;
 use League\Geotools\Convert\Convert;
-use Geocoder\Geocoder;
 
 /**
  * Geotools class
@@ -71,14 +70,6 @@ class Geotools implements GeotoolsInterface
     public function vertex()
     {
         return new Vertex;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function batch(Geocoder $geocoder)
-    {
-        return new Batch($geocoder);
     }
 
     /**

@@ -11,7 +11,6 @@
 
 namespace League\Geotools;
 
-use Geocoder\Geocoder as GeocoderInterface;
 use League\Geotools\Batch\BatchInterface;
 use League\Geotools\Convert\ConvertInterface;
 use League\Geotools\Coordinate\CoordinateInterface;
@@ -82,15 +81,6 @@ interface GeotoolsInterface
      * @return VertexInterface
      */
     public function vertex();
-
-    /**
-     * Returns an instance of Batch.
-     *
-     * @param GeocoderInterface $geocoder The Geocoder instance to use.
-     *
-     * @return BatchInterface
-     */
-    public function batch(GeocoderInterface $geocoder);
 
     /**
      * Returns an instance of Geohash.

@@ -1,17 +1,11 @@
 Geotools
 ========
 
-**Geotools** is a PHP geo-related library, built atop [Geocoder](https://github.com/willdurand/Geocoder) and
-[React](https://github.com/reactphp/react) libraries.
+**Geotools** is a PHP geo-related library, [React](https://github.com/reactphp/react) libraries.
 
 Features
 --------
 
-* **Batch** geocode & reverse geocoding request(s) in **series** / in **parallel** against one or a
-**set of providers**. [»](#batch)
-* **Cache** geocode & reverse geocoding result(s) with **Redis**, **Memcached** or **MongoDB**
-to improve performances. [»](#batch)
-* Compute geocode & reverse geocoding in the **command-line interface** (CLI) + dumpers and formatters. [»](#cli)
 * Accept **almost** all kind of WGS84
 [geographic coordinates](http://en.wikipedia.org/wiki/Geographic_coordinate_conversion) as coordinates.
 [»](#coordinate--ellipsoid)
@@ -34,8 +28,6 @@ coordinate, read more in [wikipedia](http://en.wikipedia.org/wiki/Cardinal_direc
 * Encode a coordinate via the 10:10 algorithm. [»](#1010)
 * **Polygon** class provides methods to check either a poing (coordinate) is in, or on the polygon's boundaries.
 [»](#polygon)
-* A **command-line interface** (CLI) for **Distance**, **Point**, **Geohash** and **Convert** classes. [»](#cli)
-* Integration with Frameworks: **Laravel 4**, **Silex** ... [»](#integration-with-frameworks)
 * ... more to come ...
 
 
@@ -185,149 +177,6 @@ Direction | `%L` | `%l`
 Degrees | `%D` | `%d`
 Minutes | `%M` | `%m`
 Seconds | `%S` | `%s`
-
-## Batch ##
-
-It provides a very handy way to batch geocode and reverse geocoding requests in *serie* or in *parallel* against
-a set of providers.  
-Thanks to [Geocoder](https://github.com/willdurand/Geocoder) and [React](https://github.com/reactphp/react) libraries.
-
-It's possible to batch *one request* (a string) or a *set of request* (an array) against *one provider* or
-*set of providers*.
-
-You can use a provided **cache engine** or use your own by setting a cache object which should implement
-`League\Geotools\Cache\CacheInterface` and extend `League\Geotools\Cache\AbstractCache` if needed.
-
-At the moment Geotools supports:
-* **[Redis](http://redis.io/)**, [packagist](https://packagist.org/packages/predis/predis) and
-[github](https://github.com/nrk/predis)
-    * `Redis(array $client = [], $expire = 0)`
-    * `$client` should be an array with `host`, `port` and `database` keys
-    * `$expire` should be an integer, no expire value by default
-    * `flush()` method deletes all the keys of the currently selected database which is `0` by default
-* **[Memcached](http://memcached.org/)**, [php.net](http://fr.php.net/manual/fr/book.memcached.php)
-    * `Memcached($server = self::DEFAULT_SERVER, $port = self::DEFAULT_PORT, $expire = 0)`
-    * `$server` can be address like `example.com` or an IP, localhost is the default one
-    * `$port` can be an integer like `11211` (by default)
-    * `$expire` should be an integer, no expire value by default
-    * `flush()` method invalidates all items in the cache
-* **[MongoDB](http://www.mongodb.org/)**, [driver](http://docs.mongodb.org/ecosystem/drivers/php/) and
-[php.net](http://us2.php.net/mongo)
-    * `MongoDB($server = null, $database = self::DATABASE, $collection = self::COLLECTION)`
-    * `$server` can be a string like `mongodb://example.com:65432`
-    * `$database` can be a string like `geotools` (by default)
-    * `$collection` can be a string like `geotools_cache` (by default)
-    * `flush()` method drops the current collection
-
-NB: Before you implement caching in your app please be sure that doing so does not violate the Terms of Service
-for your(s) geocoding provider(s).
-
-```php
-<?php
-
-$geocoder = new \Geocoder\ProviderAggregator(); // or \Geocoder\TimedGeocoder
-$adapter  = new \Ivory\HttpAdapter\CurlHttpAdapter();
-
-$geocoder->registerProviders([
-    new \Geocoder\Provider\GoogleMapsProvider($adapter),
-    new \Geocoder\Provider\OpenStreetMapProvider($adapter),
-    new \Geocoder\Provider\BingMapsProvider($adapter, '<FAKE_API_KEY>'), // throws InvalidCredentialsException
-    new \Geocoder\Provider\YandexProvider($adapter),
-    new \Geocoder\Provider\FreeGeoIpProvider($adapter),
-    new \Geocoder\Provider\GeoipProvider(),
-]);
-
-try {
-    $geotools = new \League\Geotools\Geotools();
-    $cache    = new \League\Geotools\Cache\MongoDB();
-    // or
-    $cache    = new \League\Geotools\Cache\Redis([
-        'host'     => '127.0.0.1',
-        'port'     => 6379,
-        'database' => 15 // the last database ID
-    ]);
-    $results  = $geotools->batch($geocoder)->setCache($cache)->geocode([
-        'Paris, France',
-        'Copenhagen, Denmark',
-        '74.200.247.59',
-        '::ffff:66.147.244.214'
-    ])->parallel();
-} catch (\Exception $e) {
-    die($e->getMessage());
-}
-
-$dumper = new \Geocoder\Dumper\WktDumper();
-foreach ($results as $result) {
-    // if a provider throws an exception (UnsupportedException, InvalidCredentialsException ...)
-    // an custom /Geocoder/Result/Geocoded instance is returned which embedded the name of the provider,
-    // the query string and the exception string. It's possible to use dumpers
-    // and/or formatters from the Geocoder library.
-    printf("%s|%s|%s\n",
-        $result->getProviderName(),
-        $result->getQuery(),
-        '' == $result->getExceptionMessage() ? $dumper->dump($result) : $result->getExceptionMessage()
-    );
-}
-```
-
-You should get 24 results (4 values to geocode against 6 providers) something like:
-
-```
-google_maps|Paris, France|POINT(2.352222 48.856614)
-google_maps|Copenhagen, Denmark|POINT(12.568337 55.676097)
-google_maps|74.200.247.59|The GoogleMapsProvider does not support IP addresses.
-google_maps|::ffff:66.147.244.214|The GoogleMapsProvider does not support IP addresses.
-openstreetmaps|Paris, France|POINT(2.352133 48.856506)
-openstreetmaps|Copenhagen, Denmark|POINT(12.570072 55.686724)
-openstreetmaps|74.200.247.59|Could not execute query http://nominatim.openstreetmap.org/search?q=74.200.247.59&format=xml&addressdetails=1&limit=1
-openstreetmaps|::ffff:66.147.244.214|The OpenStreetMapProvider does not support IPv6 addresses.
-bing_maps|Paris, France|Could not execute query http://dev.virtualearth.net/REST/v1/Locations/?q=Paris%2C+France&key=<FAKE_API_KEY>
-bing_maps|Copenhagen, Denmark|Could not execute query http://dev.virtualearth.net/REST/v1/Locations/?q=Copenhagen%2C+Denmark&key=<FAKE_API_KEY>
-bing_maps|74.200.247.59|The BingMapsProvider does not support IP addresses.
-bing_maps|::ffff:66.147.244.214|The BingMapsProvider does not support IP addresses.
-yandex|Paris, France|POINT(2.341198 48.856929)
-yandex|Copenhagen, Denmark|POINT(12.567602 55.675682)
-yandex|74.200.247.59|The YandexProvider does not support IP addresses.
-yandex|::ffff:66.147.244.214|The YandexProvider does not support IP addresses.
-free_geo_ip|Paris, France|The FreeGeoIpProvider does not support Street addresses.
-free_geo_ip|Copenhagen, Denmark|The FreeGeoIpProvider does not support Street addresses.
-free_geo_ip|74.200.247.59|POINT(-122.415600 37.748400)
-free_geo_ip|::ffff:66.147.244.214|POINT(-111.613300 40.218100)
-geoip|Paris, France|The GeoipProvider does not support Street addresses.
-geoip|Copenhagen, Denmark|The GeoipProvider does not support Street addresses.
-geoip|74.200.247.59|POINT(-122.415604 37.748402)
-geoip|::ffff:66.147.244.214|The GeoipProvider does not support IPv6 addresses.
-```
-
-Batch reverse geocoding is something like:
-
-```php
-<?php
-
-// ... $geocoder like the previous example ...
-// If you want to reverse one coordinate
-try {
-    $results = $geotools->batch($geocoder)->reverse(
-        new \League\Geotools\Coordinate\Coordinate([2.307266, 48.823405])
-    )->parallel();
-} catch (\Exception $e) {
-    die($e->getMessage());
-}
-// Or if you want to reverse geocoding 3 coordinates
-$coordinates = [
-    new \League\Geotools\Coordinate\Coordinate([2.307266, 48.823405]),
-    new \League\Geotools\Coordinate\Coordinate([12.568337, 55.676097]),
-    new \League\Geotools\Coordinate\Coordinate('-74.005973 40.714353')),
-];
-$results = $geotools->batch($geocoder)->reverse($coordinates)->parallel();
-// ...
-```
-
-If you want to batch it in serie, replace the method `parallel()` by `serie()`.
-
-To optimize batch requests you need to register providers according to their **capabilities** and what you're
-**looking for** (geocode street addresses, geocode IPv4, geocode IPv6 or reverse geocoding),
-please read more at the [Geocoder library doc](https://github.com/willdurand/Geocoder#freegeoipprovider).
 
 ## Distance ##
 
