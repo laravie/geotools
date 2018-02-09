@@ -27,7 +27,6 @@
         "php"                     : "^7.0",
         "willdurand/geocoder"     : "~4.0",
         "react/promise"           : "~2.2",
-        "symfony/console"         : "~2.7|~3.0",
         "symfony/property-access" : "~2.7|~3.0",
         "symfony/serializer"      : "~2.7|~3.0",
         "react/event-loop"        : "0.4.*"
@@ -52,8 +51,6 @@
             "League\\Geotools\\Tests\\" : "tests"
         }
     },
-
-    "bin" : ["bin/geotools"],
 
     "extra" : {
         "branch-alias" : {
