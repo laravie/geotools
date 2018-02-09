@@ -11,7 +11,6 @@
 
 namespace League\Geotools;
 
-use League\Geotools\Batch\BatchInterface;
 use League\Geotools\Convert\ConvertInterface;
 use League\Geotools\Coordinate\CoordinateInterface;
 use League\Geotools\Vertex\VertexInterface;

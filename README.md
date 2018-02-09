@@ -1,7 +1,7 @@
 Geotools
 ========
 
-**Geotools** is a PHP geo-related library, [React](https://github.com/reactphp/react) libraries.
+**Geotools** is a PHP geo-related library.
 
 Features
 --------
@@ -349,20 +349,6 @@ Credits
 * [Phil Sturgeon](https://twitter.com/philsturgeon)
 * [Gabriel Bull](mailto:me@gabrielbull.com)
 * [All contributors](https://github.com/toin0u/Geotools/contributors)
-
-
-Acknowledgments
----------------
-* [Geocoder](https://github.com/willdurand/Geocoder) -
-[MIT](https://raw.github.com/willdurand/Geocoder/master/LICENSE)
-* [ReactPHP](https://github.com/reactphp/) -
-[MIT](https://raw.github.com/reactphp/react/master/LICENSE)
-* [Symfony Console Component](https://github.com/symfony/Console) -
-[MIT](https://raw.github.com/symfony/Console/master/LICENSE)
-* [Symfony Serializer Component](https://github.com/symfony/Serializer) -
-[MIT](https://raw.github.com/symfony/Serializer/master/LICENSE)
-* [PHP client library for Redis](https://github.com/nrk/predis) -
-[MIT](https://raw.github.com/nrk/predis/master/LICENSE)
 
 Contributor Code of Conduct
 ---------------------------

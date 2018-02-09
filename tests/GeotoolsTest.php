@@ -12,7 +12,6 @@
 namespace League\Geotools\Tests;
 
 use League\Geotools\Geotools;
-use Geocoder\ProviderAggregator as Geocoder;
 use League\Geotools\GeotoolsInterface;
 
 /**

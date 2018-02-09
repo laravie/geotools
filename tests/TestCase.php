@@ -12,9 +12,6 @@
 namespace League\Geotools\Tests;
 
 use Geocoder\Model\Address;
-use Geocoder\Model\AddressCollection;
-use Geocoder\ProviderAggregator;
-use League\Geotools\Batch\BatchGeocoded;
 use League\Geotools\Coordinate\CoordinateInterface;
 use League\Geotools\Coordinate\Ellipsoid;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -146,84 +143,6 @@ abstract class TestCase extends BaseTestCase
                 ->method('getEllipsoid')
                 ->will($this->returnValue($ellipsoid));
         }
-
-        return $mock;
-    }
-
-    /**
-     * @param $expects
-     *
-     * @return AddressCollection
-     */
-    protected function getMockGeocoded($expects = null)
-    {
-        if (null === $expects) {
-            $expects = $this->once();
-        }
-
-        $mock = $this->createMock('\League\Geotools\Batch\BatchGeocoded');
-        $mock
-            ->expects($expects)
-            ->method('getCoordinates')
-            ->will($this->returnArgument(0));
-
-        return $mock;
-    }
-
-    /**
-     * @param array $coordinate
-     *
-     * @return AddressCollection
-     */
-    protected function getMockGeocodedReturns(array $coordinate)
-    {
-        $mock = $this->createMock('\League\Geotools\Batch\BatchGeocoded');
-        $mock
-            ->expects($this->atLeastOnce())
-            ->method('getLatitude')
-            ->will($this->returnValue($coordinate['latitude']));
-        $mock
-            ->expects($this->atLeastOnce())
-            ->method('getLongitude')
-            ->will($this->returnValue($coordinate['longitude']));
-
-        return $mock;
-    }
-
-    /**
-     * @return BatchGeocoded
-     */
-    protected function getStubBatchGeocoded()
-    {
-        return $this->createMock('\League\Geotools\Batch\BatchGeocoded');
-    }
-
-    /**
-     * @return CacheInterface
-     */
-    protected function getStubCache()
-    {
-        $stub = $this
-            ->getMockBuilder('\League\Geotools\Cache\CacheInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        return $stub;
-    }
-
-    /**
-     * @param string $method
-     * @param $returnValue
-     *
-     * @return CacheInterface
-     */
-    protected function getMockCacheReturns($method, $returnValue)
-    {
-        $mock = $this->createMock('\League\Geotools\Cache\CacheInterface');
-        $mock
-            ->expects($this->atLeastOnce())
-            ->method($method)
-            ->will($this->returnValue($returnValue));
 
         return $mock;
     }
