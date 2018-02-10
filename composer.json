@@ -1,54 +1,51 @@
 {
-    "name"        : "laravie/geotools",
-    "type"        : "library",
+    "name" : "laravie/geotools",
+    "type" : "library",
     "description" : "Geo-related tools PHP 7.0+ library",
-    "keywords"    : ["geotools", "geometry", "geoip", "bounds", "distance"],
-    "license"     : "MIT",
-
-    "authors" : [{
-        "name"     : "Antoine Corcy",
-        "email"    : "contact@sbin.dk",
-        "homepage" : "http://sbin.dk",
-        "role"     : "Developer"
-    }],
-
+    "keywords" : ["geotools", "geometry", "geoip", "bounds", "distance"],
+    "license" : "MIT",
     "support" : {
         "issues" : "https://github.com/laravie/geotools/issues",
         "source" : "https://github.com/laravie/geotools"
     },
-
-    "conflict": {
-        "league/geotools" : "*"
-    },
-
-    "replace" : {
-        "toin0u/geotools" : "*"
-    },
-
-    "require" : {
-        "php" : "^7.0"
-    },
-
-    "require-dev" : {
-        "phpunit/phpunit"     : "^6.0 || ^7.0",
-        "willdurand/geocoder" : "~4.0"
-    },
-
+    "authors" : [
+        {
+            "name" : "Antoine Corcy",
+            "email" : "contact@sbin.dk",
+            "homepage" : "http://sbin.dk",
+            "role" : "Developer"
+        }
+    ],
     "autoload" : {
         "psr-4" : {
             "League\\Geotools\\" : "src"
         }
     },
-
     "autoload-dev" : {
         "psr-4" : {
             "League\\Geotools\\Tests\\" : "tests"
         }
     },
-
+    "require" : {
+        "php" : "^7.0"
+    },
+    "require-dev" : {
+        "phpunit/phpunit" : "^6.0 || ^7.0",
+        "willdurand/geocoder" : "~4.0"
+    },
+    "conflict": {
+        "league/geotools" : "*"
+    },
+    "replace" : {
+        "toin0u/geotools" : "*"
+    },
     "extra" : {
         "branch-alias" : {
             "dev-master" : "1.0-dev"
         }
-    }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
 }
