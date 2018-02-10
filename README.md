@@ -3,6 +3,12 @@ Geotools
 
 **Geotools** is a PHP geo-related library.
 
+[![Build Status](https://travis-ci.org/laravie/geotools.svg?branch=master)](https://travis-ci.org/laravie/geotools)
+[![Latest Stable Version](https://poser.pugx.org/laravie/geotools/v/stable)](https://packagist.org/packages/laravie/geotools)
+[![Total Downloads](https://poser.pugx.org/laravie/geotools/downloads)](https://packagist.org/packages/laravie/geotools)
+[![Latest Unstable Version](https://poser.pugx.org/laravie/geotools/v/unstable)](https://packagist.org/packages/laravie/geotools)
+[![License](https://poser.pugx.org/laravie/geotools/license)](https://packagist.org/packages/laravie/geotools)
+
 Features
 --------
 
@@ -34,7 +40,7 @@ coordinate, read more in [wikipedia](http://en.wikipedia.org/wiki/Cardinal_direc
 Installation
 ------------
 
-**Geotools** can be found on [Packagist](https://packagist.org/packages/league/geotools).
+**Geotools** can be found on [Packagist](https://packagist.org/packages/laravie/geotools).
 The recommended way to install **Geotools** is through [composer](http://getcomposer.org).
 
 Run the following on the command line:
