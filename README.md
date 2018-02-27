@@ -46,12 +46,8 @@ The recommended way to install **Geotools** is through [composer](http://getcomp
 Run the following on the command line:
 
 ```
-php composer require laravie/geotools=@stable
+php composer require laravie/geotools=~1.0
 ```
-
-**Protip:** you should browse the
-[`laravie/geotools`](https://packagist.org/packages/laravie/geotools)
-page to choose a stable version to use, avoid the `@stable` meta constraint.
 
 Usage & API
 -----------
@@ -77,7 +73,7 @@ $myEllipsoid = \League\Geotools\Coordinate\Ellipsoid::createFromArray([
 ]);
 ```
 
-**Geotools** is built atop [Geocoder](https://github.com/willdurand/Geocoder). It means it's possible to use the
+**Geotools** is built to work with [Geocoder](https://github.com/willdurand/Geocoder). It means it's possible to use the
 `\Geocoder\Model\Address` directly but it's also possible to use a *string* or a simple *array* with its
 latitude and longitude.
 
