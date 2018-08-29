@@ -1,5 +1,9 @@
-vendor/
-composer.lock
-composer.phar
-phpunit.xml
-php-cs-fixer.phar
+# Composer
+/vendor/*
+/composer.lock
+/composer.phar
+
+# PHPUnit
+/coverage/*
+/phpunit.xml
+/.phpunit.result.cache
