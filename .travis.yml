@@ -27,4 +27,6 @@ script:
   - vendor/bin/phpunit --testdox --verbose
 
 matrix:
+  allow_failures:
+    - php: nightly
   fast_finish: true
