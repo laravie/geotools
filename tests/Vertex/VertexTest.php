@@ -24,7 +24,7 @@ class VertexTest extends \League\Geotools\Tests\TestCase
     protected $from;
     protected $to;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->vertex = new Vertex;
         $this->from  = $this->getStubCoordinate();
