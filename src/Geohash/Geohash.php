@@ -24,21 +24,6 @@ use League\Geotools\Exception\RuntimeException;
 class Geohash implements GeohashInterface
 {
     /**
-     * The minimum length of the geo hash.
-     *
-     * @var integer
-     */
-    const MIN_LENGTH = 1;
-
-    /**
-     * The maximum length of the geo hash.
-     *
-     * @var integer
-     */
-    const MAX_LENGTH = 12;
-
-
-    /**
      * The geo hash.
      *
      * @var string
