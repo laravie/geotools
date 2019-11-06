@@ -1,12 +1,11 @@
 language: php
-sudo: false
+dist: xenial
 
 php:
   - 7.0
   - 7.1
   - 7.2
   - 7.3
-  - nightly
 
 env:
   matrix:
@@ -27,6 +26,11 @@ script:
   - vendor/bin/phpunit --testdox --verbose
 
 matrix:
+  include:
+    - php: 7.4snapshot
+      env: setup=basic
+    - php: 7.4snapshot
+      env: setup=stable
   allow_failures:
-    - php: nightly
+    - php: 7.4snapshot
   fast_finish: true
