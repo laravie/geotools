@@ -1,4 +1,4 @@
-dist: bionic
+dist: xenial
 language: php
 
 php:
@@ -26,11 +26,6 @@ script:
   - vendor/bin/phpunit --testdox --verbose
 
 matrix:
-  include:
-    - php: 7.4
-      env: setup=basic
-    - php: 7.4
-      env: setup=stable
   allow_failures:
-    - php: 7.4snapshot
+    - php: 7.4
   fast_finish: true
