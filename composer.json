@@ -1,7 +1,7 @@
 {
     "name": "laravie/geotools",
     "type": "library",
-    "description": "Geo-related tools PHP 7.0+ library",
+    "description": "Geo-related tools PHP 7+ library",
     "keywords": ["geotools", "geometry", "geoip", "bounds", "distance", "geohash", "latlong", "latitude", "longitude"],
     "license": "MIT",
     "support": {
