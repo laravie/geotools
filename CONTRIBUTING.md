@@ -1,29 +1,31 @@
-CONTRIBUTING
-============
+# Contributing
 
-Contributions are **welcome** and be fully **credited** <3
+Contributions are welcome, and are accepted via pull requests. Please review these guidelines before submitting any pull requests.
 
-**Geotools** will use the [Symfony2 Coding Standard](http://symfony.com/doc/current/contributing/code/standards.html).
-The easiest way to apply these conventions is to install [PHP_CodeSniffer](http://pear.php.net/package/PHP_CodeSniffer)
-and the [Opensky Symfony2 Coding Standard](https://github.com/opensky/Symfony2-coding-standard).
+## Guidelines
 
-You may be interested in [PHP Coding Standards Fixer](https://github.com/fabpot/PHP-CS-Fixer).
+* Please follow the [PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md).
+* Ensure that the current tests pass, and if you've added something new, add the tests where relevant.
+* Remember that we follow [SemVer](http://semver.org). If you are changing the behaviour, or the public api, you may need to update the docs.
+* Send a coherent commit history, making sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash](http://git-scm.com/book/en/Git-Tools-Rewriting-History) them before submitting.
+* You may also need to [rebase](http://git-scm.com/book/en/Git-Branching-Rebasing) to avoid merge conflicts.
 
-Installation
-------------
+## Running Tests
 
-``` bash
-$ pear install PHP_CodeSniffer
-$ cd `pear config-get php_dir`/PHP/CodeSniffer/Standards
-$ git clone git://github.com/opensky/Symfony2-coding-standard.git Symfony2
-$ phpcs --config-set default_standard Symfony2
+You will need an install of [Composer](https://getcomposer.org) before continuing.
+
+First, install the dependencies:
+
+```bash
+$ composer install
 ```
 
-Usage
------
+Then run phpunit:
 
-``` bash
-$ phpcs src/
+```bash
+$ vendor/bin/phpunit
 ```
 
-**Happy coding** !
+If the test suite passes on your local machine you should be good to go.
+
+When you make a pull request, the tests will automatically be run again by [Travis CI](https://travis-ci.org/) on multiple php versions and hhvm.
