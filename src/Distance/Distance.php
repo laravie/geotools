@@ -122,7 +122,17 @@ class Distance implements DistanceInterface
         $latB = deg2rad($this->to->getLatitude());
         $lngB = deg2rad($this->to->getLongitude());
 
-        $degrees = acos(sin($latA) * sin($latB) + cos($latA) * cos($latB) * cos($lngB - $lngA));
+        $t = sin($latA) * sin($latB) + cos($latA) * cos($latB) * cos($lngB - $lngA);
+
+        if ($t >= 1) {
+            return 0.0;
+        }
+
+        if ($t <= -1) {
+            $degrees = M_PI;
+        } else {
+            $degrees = acos($t);
+        }
 
         return $this->convertToUserUnit($degrees * $this->from->getEllipsoid()->getA());
     }
