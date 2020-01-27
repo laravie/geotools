@@ -125,7 +125,7 @@ class Distance implements DistanceInterface
         $t = sin($latA) * sin($latB) + cos($latA) * cos($latB) * cos($lngB - $lngA);
 
         if ($t >= 1) {
-            return 0;
+            return 0.0;
         }
 
         if ($t <= -1) {
