@@ -3,7 +3,7 @@ Geotools
 
 **Geotools** is a PHP geo-related library.
 
-[![Build Status](https://travis-ci.org/laravie/geotools.svg?branch=master)](https://travis-ci.org/laravie/geotools)
+[![tests](https://github.com/laravie/geotools/workflows/tests/badge.svg?branch=master)](https://github.com/laravie/query-filter/actions?query=workflow%3Atests+branch%3Amaster)
 [![Latest Stable Version](https://poser.pugx.org/laravie/geotools/v/stable)](https://packagist.org/packages/laravie/geotools)
 [![Total Downloads](https://poser.pugx.org/laravie/geotools/downloads)](https://packagist.org/packages/laravie/geotools)
 [![Latest Unstable Version](https://poser.pugx.org/laravie/geotools/v/unstable)](https://packagist.org/packages/laravie/geotools)
