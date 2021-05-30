@@ -29,7 +29,7 @@ class VertexTest extends \League\Geotools\Tests\TestCase
         $this->vertex = new Vertex;
         $this->from  = $this->getStubCoordinate();
         $this->to    = $this->getStubCoordinate();
-        }
+    }
 
     public function testSetFromValueShouldBeACoordinateInterface()
     {

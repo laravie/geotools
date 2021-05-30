@@ -24,9 +24,8 @@ class CoordinateTest extends \League\Geotools\Tests\TestCase
      */
     public function testConstructorWithInvalidCoordinatesShouldThrowAnException($coordinates)
     {
-        $this->expectException('League\Geotools\Exception\InvalidArgumentException');
+        $this->expectException(\League\Geotools\Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('It should be a string, an array or a class which implements Geocoder\Model\Address !');
-
         new Coordinate($coordinates);
     }
 
@@ -50,9 +49,8 @@ class CoordinateTest extends \League\Geotools\Tests\TestCase
      */
     public function testConstructorWithInvalidStringCoordinatesShouldThrowAnException($coordinates)
     {
-        $this->expectException('League\Geotools\Exception\InvalidArgumentException');
+        $this->expectException(\League\Geotools\Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('It should be a valid and acceptable ways to write geographic coordinates !');
-
         new Coordinate($coordinates);
     }
 
@@ -169,6 +167,9 @@ class CoordinateTest extends \League\Geotools\Tests\TestCase
         );
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testConstructorWithAddressArgumentShouldBeValid()
     {
         new Coordinate($this->createEmptyAddress());
@@ -322,18 +323,16 @@ class CoordinateTest extends \League\Geotools\Tests\TestCase
 
     public function testCreateFromStringWithoutAString()
     {
-        $this->expectException('League\Geotools\Exception\InvalidArgumentException');
+        $this->expectException(\League\Geotools\Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('The given coordinates should be a string !');
-
         $coordinate = new Coordinate($this->createEmptyAddress());
         $coordinate->setFromString(123);
     }
 
     public function testCreateFromStringWithInvalidCoordinateString()
     {
-        $this->expectException('League\Geotools\Exception\InvalidArgumentException');
+        $this->expectException(\League\Geotools\Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('It should be a valid and acceptable ways to write geographic coordinates !');
-
         $coordinate = new Coordinate($this->createEmptyAddress());
         $coordinate->setFromString('foo');
     }

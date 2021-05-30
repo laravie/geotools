@@ -26,10 +26,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getStubGeocoder()
     {
-        $stub = $this
-            ->getMockBuilder('\Geocoder\ProviderAggregator')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $stub = $this->createMock('\Geocoder\ProviderAggregator');
 
         return $stub;
     }
@@ -48,21 +45,17 @@ abstract class TestCase extends BaseTestCase
             $addresses = new AddressCollection([Address::createFromArray($data)]);
         }
 
-        $mock = $this->getMockBuilder('\Geocoder\ProviderAggregator')->getMock();
+        $mock = $this->createMock('\Geocoder\ProviderAggregator');
         $mock
-            ->expects($this->any())
             ->method('getProviders')
             ->will($this->returnValue($providers));
         $mock
-            ->expects($this->any())
             ->method('using')
             ->will($this->returnSelf());
         $mock
-            ->expects($this->any())
             ->method('geocode')
             ->will($this->returnValue($addresses));
         $mock
-            ->expects($this->any())
             ->method('reverse')
             ->will($this->returnValue($addresses));
 
@@ -82,15 +75,12 @@ abstract class TestCase extends BaseTestCase
             ->method('getProviders')
             ->will($this->returnValue($providers));
         $mock
-            ->expects($this->any())
             ->method('using')
             ->will($this->returnSelf());
         $mock
-            ->expects($this->any())
             ->method('geocode')
             ->will($this->throwException(new \Exception));
         $mock
-            ->expects($this->any())
             ->method('reverse')
             ->will($this->throwException(new \Exception));
 
@@ -104,10 +94,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getStubCoordinate($lat = null, $lng = null)
     {
-        $stub = $this
-            ->getMockBuilder('\League\Geotools\Coordinate\CoordinateInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $stub = $this->createMock('\League\Geotools\Coordinate\CoordinateInterface');
 
         if (null !== $lat) {
             $stub->method('getLatitude')->willReturn($lat);
@@ -129,11 +116,9 @@ abstract class TestCase extends BaseTestCase
     {
         $mock = $this->createMock('\League\Geotools\Coordinate\CoordinateInterface');
         $mock
-            ->expects($this->any())
             ->method('getLatitude')
             ->will($this->returnValue($coordinate[0]));
         $mock
-            ->expects($this->any())
             ->method('getLongitude')
             ->will($this->returnValue($coordinate[1]));
 
@@ -143,6 +128,87 @@ abstract class TestCase extends BaseTestCase
                 ->method('getEllipsoid')
                 ->will($this->returnValue($ellipsoid));
         }
+
+        return $mock;
+    }
+
+    /**
+     * @param $expects
+     *
+     * @return AddressCollection
+     */
+    protected function getMockGeocoded($expects = null)
+    {
+        if (null === $expects) {
+            $expects = $this->once();
+        }
+
+        $mock = $this->createMock('\League\Geotools\Batch\BatchGeocoded');
+        $mock
+            ->expects($expects)
+            ->method('getCoordinates')
+            ->will($this->returnArgument(0));
+
+        return $mock;
+    }
+
+    /**
+     * @param array $coordinate
+     *
+     * @return AddressCollection
+     */
+    protected function getMockGeocodedReturns(array $coordinate)
+    {
+        $mock = $this->createMock('\League\Geotools\Batch\BatchGeocoded');
+        $mock
+            ->expects($this->atLeastOnce())
+            ->method('getLatitude')
+            ->will($this->returnValue($coordinate['latitude']));
+        $mock
+            ->expects($this->atLeastOnce())
+            ->method('getLongitude')
+            ->will($this->returnValue($coordinate['longitude']));
+
+        return $mock;
+    }
+
+    /**
+     * @return BatchGeocoded
+     */
+    protected function getStubBatchGeocoded()
+    {
+        $stub = $this->createMock('\League\Geotools\Batch\BatchGeocoded');
+
+        $stub
+            ->method('getProviderName')
+            ->willReturn('provider');
+        $stub
+            ->method('getQuery')
+            ->willReturn('query');
+
+        return $stub;
+    }
+
+    /**
+     * @param mixed $returnValue
+     *
+     * @return CacheItemPoolInterface
+     */
+    protected function getMockCacheReturns($returnValue)
+    {
+        $item = $this->createMock(CacheItemInterface::class);
+        $item
+            ->method('get')
+            ->willReturn($returnValue);
+        $item
+            ->method('isHit')
+            ->willReturn(true);
+
+        $mock = $this->createMock(CacheItemPoolInterface::class);
+        $mock
+            ->expects($this->atLeastOnce())
+            ->method('getItem')
+            ->willReturn($item);
 
         return $mock;
     }

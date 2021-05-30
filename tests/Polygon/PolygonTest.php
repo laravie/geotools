@@ -31,15 +31,13 @@ class PolygonTest extends \League\Geotools\Tests\TestCase
 
     public function testCannotCreatePolygonWithString()
     {
-        $this->expectException('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         new Polygon('foo');
     }
 
     public function testCannotCreatePolygonWithInteger()
     {
-        $this->expectException('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         new Polygon(123);
     }
 
@@ -60,6 +58,7 @@ class PolygonTest extends \League\Geotools\Tests\TestCase
     /**
      * @dataProvider polygonCoordinates
      * @param array $polygonCoordinates
+     * @doesNotPerformAssertions
      */
     public function testContructor($polygonCoordinates)
     {

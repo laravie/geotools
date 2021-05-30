@@ -50,16 +50,25 @@ class BoundingBoxTest extends \League\Geotools\Tests\TestCase
         );
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testConstructWithPolygon()
     {
         new BoundingBox(new Polygon);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testConstructWithCoordinate()
     {
         new BoundingBox(new Coordinate(array(0, 0)));
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testConstructWithNull()
     {
         new BoundingBox;
@@ -67,8 +76,7 @@ class BoundingBoxTest extends \League\Geotools\Tests\TestCase
 
     public function testConstructWithInvalidArgument()
     {
-        $this->expectException('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         new BoundingBox('string');
     }
 
